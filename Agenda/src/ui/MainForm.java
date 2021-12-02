@@ -1,15 +1,21 @@
 package ui;
 
+import business.ContactBusiness;
+import entity.ContactEntity;
+
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class MainForm extends JFrame {
     private JPanel rootPanel;
     private JButton buttonNewContact;
     private JButton buttonRemove;
     private JTable tableContacts;
+
+    private ContactBusiness mContactBusiness;
 
     // construtor que inicializa a interface
     public MainForm() {
@@ -25,7 +31,15 @@ public class MainForm extends JFrame {
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); // encerra o programa ao fechar a janela
 
+        mContactBusiness = new ContactBusiness(); // instancia a variável mContactBusiness
+
         setListeners();
+
+        loadContacts();
+    }
+
+    private void loadContacts() {
+        List<ContactEntity> contactList = mContactBusiness.getList(); // lista de contatos salvos em ContactRepository
     }
 
     // método responsável por "ouvir" e atribuir os eventos às ações
