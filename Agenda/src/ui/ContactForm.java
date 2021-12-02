@@ -1,5 +1,7 @@
 package ui;
 
+import business.ContactBusiness;
+
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -13,6 +15,8 @@ public class ContactForm extends JFrame {
     private JButton buttonSave;
     private JButton buttonCancel;
 
+    private ContactBusiness mContactBusiness;
+
     // construtor que inicializa a interface
     public ContactForm() {
         setContentPane(rootPanel);
@@ -24,11 +28,30 @@ public class ContactForm extends JFrame {
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); // encerra o programa ao fechar a janela
 
+        mContactBusiness = new ContactBusiness();
         setListeners();
     }
 
     // ao clicar no botão cancelar, a janela atual vai "se esconder" e o MainForm aparece novamente
     private void setListeners() {
+
+        buttonSave.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // pega os valores digitados nos campos de texto da janela ContactForm
+                String contactName = textName.getText();
+                String contactPhone = textPhone.getText();
+
+                mContactBusiness.save(contactName, contactPhone);
+
+                /*
+                Instancia um nome MainForm que será exibido após salvar um contato e fechar a janela de CntactForm
+                 */
+                new MainForm();
+                dispose();
+            }
+        });
+
         buttonCancel.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
