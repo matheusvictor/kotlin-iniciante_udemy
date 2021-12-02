@@ -11,7 +11,8 @@ class ContactBusiness {
     }
 
     fun validateDelete(name: String, phone: String) {
-        if (name.equals("") || phone.equals("")) throw Exception("É necessário selecionar um contato antes de remover.")
+        if (name.equals("") || phone.equals(""))
+            throw Exception("É necessário selecionar um contato antes de remover.")
     }
 
     fun save(name: String, phone: String) {
@@ -26,5 +27,9 @@ class ContactBusiness {
 
         val contact = ContactEntity(name, phone)
         ContactRepository.delete(contact)
+    }
+
+    fun getList(): List<ContactEntity> {
+        return ContactRepository.getList()
     }
 }

@@ -1,7 +1,7 @@
 package ui;
 
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -13,10 +13,13 @@ public class MainForm extends JFrame {
 
     // construtor que inicializa a interface
     public MainForm() {
+
+        // definindo tamanho da janela do JFrame
         setContentPane(rootPanel);
         setSize(500, 250);
         setVisible(true);
 
+        // centraliza o JFrame em relação ao monitor
         Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize(); // obtem o tamanho da tela
         setLocation(dimension.width / 2 - getSize().width / 2, dimension.height / 2 - getSize().height / 2); // centraliza a amplicação na janela, considerando metade do tamanho original
 
@@ -26,12 +29,13 @@ public class MainForm extends JFrame {
     }
 
     // método responsável por "ouvir" e atribuir os eventos às ações
-    private void setListeners(){
+    private void setListeners() {
         buttonNewContact.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // ao clicar no botão, o ContactForm será invocado
                 new ContactForm();
-                dispose();
+                dispose(); // fecha o MainForm ao abrir o ContactForm
             }
         });
 

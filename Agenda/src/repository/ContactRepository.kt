@@ -4,7 +4,7 @@ import entity.ContactEntity
 
 class ContactRepository {
 
-    companion object contactDatabase {
+    companion object {
 
         private val contactList = mutableListOf<ContactEntity>()
 
@@ -14,6 +14,10 @@ class ContactRepository {
 
         fun delete(contact: ContactEntity) {
 
+        }
+
+        fun getList(): List<ContactEntity> {
+            return contactList
         }
 
     }
