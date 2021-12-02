@@ -38,26 +38,36 @@ public class ContactForm extends JFrame {
         buttonSave.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // pega os valores digitados nos campos de texto da janela ContactForm
-                String contactName = textName.getText();
-                String contactPhone = textPhone.getText();
+                try {
+                    // pega os valores digitados nos campos de texto da janela ContactForm
+                    String contactName = textName.getText();
+                    String contactPhone = textPhone.getText();
 
-                mContactBusiness.save(contactName, contactPhone);
+                    mContactBusiness.save(contactName, contactPhone);
 
                 /*
                 Instancia um nome MainForm que será exibido após salvar um contato e fechar a janela de CntactForm
                  */
-                new MainForm();
-                dispose();
+                    new MainForm();
+                    dispose();
+                } catch (Exception error) {
+                    JOptionPane.showMessageDialog(new JFrame(), error.getMessage());
+                    /*
+                     Caso o código acima não seja executado, uma nova janela será instanciada,
+                     exibindo a msg de erro definida em ContactBussines
+                    */
+                }
             }
         });
 
-        buttonCancel.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new MainForm();
-                dispose();
-            }
-        });
+        buttonCancel.addActionListener(new
+
+                                               ActionListener() {
+                                                   @Override
+                                                   public void actionPerformed(ActionEvent e) {
+                                                       new MainForm();
+                                                       dispose();
+                                                   }
+                                               });
     }
 }
