@@ -91,8 +91,12 @@ public class MainForm extends JFrame {
             public void valueChanged(ListSelectionEvent e) {
                 // "escutar" estado da tabela para saber qual coluna está selecionada
                 if (e.getValueIsAdjusting()) {
-                    mName = tableContacts.getValueAt(tableContacts.getSelectedRow(), 0).toString();
-                    mPhone = tableContacts.getValueAt(tableContacts.getSelectedRow(), 1).toString();
+
+                    if (tableContacts.getSelectedRow() != -1) {
+                        mName = tableContacts.getValueAt(tableContacts.getSelectedRow(), 0).toString();
+                        mPhone = tableContacts.getValueAt(tableContacts.getSelectedRow(), 1).toString();
+                    }
+
                 }
             }
         });
