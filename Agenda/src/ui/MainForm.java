@@ -104,7 +104,9 @@ public class MainForm extends JFrame {
         buttonRemove.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                mContactBusiness.delete(mName, mPhone);
 
+                loadContacts(); // atualiza listas de contatos da tabela
             }
         });
     }
