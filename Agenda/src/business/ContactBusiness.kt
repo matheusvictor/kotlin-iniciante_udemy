@@ -15,6 +15,15 @@ class ContactBusiness {
             throw Exception("É necessário selecionar um contato antes de remover.")
     }
 
+    fun getContactCountDescription(): String {
+        val list = getList() // pega a lista de contatos através do método getList
+        return when {
+            list.isEmpty() -> "0 contatos"
+            list.size == 1 -> "1 contato"
+            else -> "${list.size} contatos"
+        }
+    }
+
     fun save(name: String, phone: String) {
         validate(name, phone)
 
