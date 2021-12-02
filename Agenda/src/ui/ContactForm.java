@@ -60,14 +60,12 @@ public class ContactForm extends JFrame {
             }
         });
 
-        buttonCancel.addActionListener(new
-
-                                               ActionListener() {
-                                                   @Override
-                                                   public void actionPerformed(ActionEvent e) {
-                                                       new MainForm();
-                                                       dispose();
-                                                   }
-                                               });
+        buttonCancel.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new MainForm();
+                dispose();
+            }
+        });
     }
 }
