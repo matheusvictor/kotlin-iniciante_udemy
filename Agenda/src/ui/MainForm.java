@@ -5,6 +5,8 @@ import entity.ContactEntity;
 
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
@@ -19,6 +21,8 @@ public class MainForm extends JFrame {
     private JLabel labelContactCount;
 
     private ContactBusiness mContactBusiness;
+    private String mName = "";
+    private String mPhone = "";
 
     // construtor que inicializa a interface
     public MainForm() {
@@ -50,6 +54,7 @@ public class MainForm extends JFrame {
             Instância um modelo de tabela vazia, recebendo um objeto que define o número de colunas. Os nomes das colunas
             são definidos por columnNames
          */
+
         DefaultTableModel tableModel = new DefaultTableModel(new Object[0][0], columnNames);
 
         for (ContactEntity contact : contactList) {
@@ -78,6 +83,17 @@ public class MainForm extends JFrame {
                 // ao clicar no botão, o ContactForm será invocado
                 new ContactForm();
                 dispose(); // fecha o MainForm ao abrir o ContactForm
+            }
+        });
+
+        tableContacts.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                // "escutar" estado da tabela para saber qual coluna está selecionada
+                if (e.getValueIsAdjusting()) {
+                    mName = tableContacts.getValueAt(tableContacts.getSelectedRow(), 0).toString();
+                    mPhone = tableContacts.getValueAt(tableContacts.getSelectedRow(), 1).toString();
+                }
             }
         });
 
