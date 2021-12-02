@@ -61,10 +61,10 @@ public class MainForm extends JFrame {
             /*
             Para cada contato do tipo ContactEntity dentro de contact List
              */
-            Object[] object = new Object[columnNames.length]; // cria um objeto com o número de colunas iguais ao tamanho de columnNames
+            Object[] object = new Object[2]; // cria um objeto com o número de colunas iguais ao tamanho de columnNames
 
-            object[contactList.indexOf(contact)] = contact.getName();
-            object[contactList.indexOf(contact) + 1] = contact.getPhone();
+            object[0] = contact.getName();
+            object[1] = contact.getPhone();
 
             tableModel.addRow(object); // adiciona o objeto ao modelo da tabela
         }
