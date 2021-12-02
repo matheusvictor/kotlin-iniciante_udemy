@@ -5,6 +5,8 @@ import entity.ContactEntity;
 
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.table.DefaultTableColumnModel;
+import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -14,6 +16,7 @@ public class MainForm extends JFrame {
     private JButton buttonNewContact;
     private JButton buttonRemove;
     private JTable tableContacts;
+    private JLabel labelContactCount;
 
     private ContactBusiness mContactBusiness;
 
@@ -40,6 +43,31 @@ public class MainForm extends JFrame {
 
     private void loadContacts() {
         List<ContactEntity> contactList = mContactBusiness.getList(); // lista de contatos salvos em ContactRepository
+
+        String[] columnNames = {"Nome", "Telefone"}; // cria uma lista de strings com os nomes das colunas que farão a tabela
+
+        /*
+            Instância um modelo de tabela vazia, recebendo um objeto que define o número de colunas. Os nomes das colunas
+            são definidos por columnNames
+         */
+        DefaultTableModel tableModel = new DefaultTableModel(new Object[0][0], columnNames);
+
+        for (ContactEntity contact : contactList) {
+            /*
+            Para cada contato do tipo ContactEntity dentro de contact List
+             */
+            Object[] object = new Object[columnNames.length]; // cria um objeto com o número de colunas iguais ao tamanho de columnNames
+
+            object[contactList.indexOf(contact)] = contact.getName();
+            object[contactList.indexOf(contact) + 1] = contact.getPhone();
+
+            tableModel.addRow(object); // adiciona o objeto ao modelo da tabela
+        }
+
+        tableContacts.clearSelection(); // inicializa tabela sem nenhuma pré-seleção de contato
+        tableContacts.setModel(tableModel); // seta o modelo de tabela criado ao tableContacts
+
+        labelContactCount.setText(mContactBusiness.getContactCountDescription()); // atualiza a label
     }
 
     // método responsável por "ouvir" e atribuir os eventos às ações
