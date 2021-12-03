@@ -19,6 +19,8 @@ public class ContactForm extends JFrame {
 
     // construtor que inicializa a interface
     public ContactForm() {
+        mContactBusiness = new ContactBusiness();
+
         setContentPane(rootPanel);
         setSize(500, 250);
         setVisible(true);
@@ -28,7 +30,6 @@ public class ContactForm extends JFrame {
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); // encerra o programa ao fechar a janela
 
-        mContactBusiness = new ContactBusiness();
         setListeners();
     }
 
@@ -38,11 +39,12 @@ public class ContactForm extends JFrame {
         buttonSave.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    // pega os valores digitados nos campos de texto da janela ContactForm
-                    String contactName = textName.getText();
-                    String contactPhone = textPhone.getText();
 
+                // pega os valores digitados nos campos de texto da janela ContactForm
+                String contactName = textName.getText();
+                String contactPhone = textPhone.getText();
+
+                try {
                     mContactBusiness.save(contactName, contactPhone);
 
                 /*

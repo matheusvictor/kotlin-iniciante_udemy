@@ -45,36 +45,6 @@ public class MainForm extends JFrame {
         loadContacts();
     }
 
-    private void loadContacts() {
-        List<ContactEntity> contactList = mContactBusiness.getList(); // lista de contatos salvos em ContactRepository
-
-        String[] columnNames = {"Nome", "Telefone"}; // cria uma lista de strings com os nomes das colunas que farão a tabela
-
-        /*
-            Instância um modelo de tabela vazia, recebendo um objeto que define o número de colunas. Os nomes das colunas
-            são definidos por columnNames
-         */
-
-        DefaultTableModel tableModel = new DefaultTableModel(new Object[0][0], columnNames);
-
-        for (ContactEntity contact : contactList) {
-            /*
-            Para cada contato do tipo ContactEntity dentro de contact List
-             */
-            Object[] object = new Object[2]; // cria um objeto com o número de colunas iguais ao tamanho de columnNames
-
-            object[0] = contact.getName();
-            object[1] = contact.getPhone();
-
-            tableModel.addRow(object); // adiciona o objeto ao modelo da tabela
-        }
-
-        tableContacts.clearSelection(); // inicializa tabela sem nenhuma pré-seleção de contato
-        tableContacts.setModel(tableModel); // seta o modelo de tabela criado ao tableContacts
-
-        labelContactCount.setText(mContactBusiness.getContactCountDescription()); // atualiza a label
-    }
-
     // método responsável por "ouvir" e atribuir os eventos às ações
     private void setListeners() {
         buttonNewContact.addActionListener(new ActionListener() {
@@ -104,10 +74,48 @@ public class MainForm extends JFrame {
         buttonRemove.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mContactBusiness.delete(mName, mPhone);
+                try {
+                    mContactBusiness.delete(mName, mPhone);
 
-                loadContacts(); // atualiza listas de contatos da tabela
+                    mName = "";
+                    mPhone = "";
+
+                } catch (Exception error) {
+                    JOptionPane.showMessageDialog(new JFrame(), error.getMessage());
+                } finally {
+                    loadContacts(); // atualiza listas de contatos da tabela
+                }
             }
         });
+    }
+
+    private void loadContacts() {
+        List<ContactEntity> contactList = mContactBusiness.getList(); // lista de contatos salvos em ContactRepository
+
+        String[] columnNames = {"Nome", "Telefone"}; // cria uma lista de strings com os nomes das colunas que farão a tabela
+
+        /*
+            Instância um modelo de tabela vazia, recebendo um objeto que define o número de colunas. Os nomes das colunas
+            são definidos por columnNames
+         */
+
+        DefaultTableModel tableModel = new DefaultTableModel(new Object[0][0], columnNames);
+
+        for (ContactEntity contact : contactList) {
+            /*
+            Para cada contato do tipo ContactEntity dentro de contact List
+             */
+            Object[] object = new Object[2]; // cria um objeto com o número de colunas iguais ao tamanho de columnNames
+
+            object[0] = contact.getName();
+            object[1] = contact.getPhone();
+
+            tableModel.addRow(object); // adiciona o objeto ao modelo da tabela
+        }
+
+        tableContacts.clearSelection(); // inicializa tabela sem nenhuma pré-seleção de contato
+        tableContacts.setModel(tableModel); // seta o modelo de tabela criado ao tableContacts
+
+        labelContactCount.setText(mContactBusiness.getContactCountDescription()); // atualiza a label
     }
 }
