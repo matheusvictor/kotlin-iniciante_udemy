@@ -8,4 +8,5 @@
     <string name="kms_por_litro">Kms por litro</string>
     <string name="gasto_total">Seu gasto total será de:</string>
     <string name="valor_total_gasto">R$0</string>
+    <string name="botao_calcular">Calcular</string>
 </resources>
