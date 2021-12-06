@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:hint="@string/distancia"
+        android:inputType="numberDecimal"
         android:padding="10dp" />
 
     <TextView
@@ -26,6 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:hint="@string/preco"
+        android:inputType="numberDecimal"
         android:padding="10dp" />
 
     <TextView
@@ -38,6 +40,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:inputType="numberDecimal"
         android:hint="@string/autonomia"
         android:padding="10dp" />
 
@@ -70,9 +73,10 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="40dp"
-        android:padding="20dp"
         android:backgroundTint="@color/lightGreen"
-        android:text="@string/botao_calcular" />
+        android:padding="20dp"
+        android:text="@string/botao_calcular"
+        android:textSize="20sp" />
 
 
 </LinearLayout>
