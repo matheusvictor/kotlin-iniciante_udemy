@@ -25,11 +25,18 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun calcularGasto() {
-        val preco = inputPreco.text.toString().toFloat()
-        val distancia = inputDistancia.text.toString().toFloat()
-        val autonomia = outputAutonomia.text.toString().toFloat()
+        if (validarCampos()) {
+            val preco = inputPreco.text.toString().toFloat()
+            val distancia = inputDistancia.text.toString().toFloat()
+            val autonomia = inputAutonomia.text.toString().toFloat()
 
-        val valorTotalGasto = (distancia * preco) / autonomia
-        textoValorTotal.text = "R$ ${"%.2f".format(valorTotalGasto)}"
+            val valorTotalGasto = (distancia * preco) / autonomia
+            textoValorTotal.text = "R$ ${"%.2f".format(valorTotalGasto)}"
+        }
+    }
+
+    private fun validarCampos(): Boolean {
+        return (inputDistancia.text.toString() != "" && inputPreco.text.toString() != "" &&
+                inputAutonomia.text.toString() != "")
     }
 }
