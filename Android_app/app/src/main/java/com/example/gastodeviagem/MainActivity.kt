@@ -15,8 +15,18 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         botaoCalcular.setOnClickListener(this)
 
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
 
+        switchModoNoturno.setOnCheckedChangeListener(
+            CompoundButton.OnCheckedChangeListener { buttonView,
+                                                     isChecked ->
+                if (isChecked) {
+                    delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_YES
+                } else {
+                    delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_NO
+                }
+            }
+        )
     }
 
     override fun onClick(view: View) {
