@@ -1,0 +1,2 @@
+com/example/exerciciorelativelayout/BuildConfig.java
+ com.example.exerciciorelativelayout.BuildConfig
