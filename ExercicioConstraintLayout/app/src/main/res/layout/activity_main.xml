@@ -6,11 +6,172 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:text="Cappuccino"
+    <View
+        android:id="@+id/headView"
+        android:layout_width="0dp"
+        android:layout_height="160dp"
+        android:background="@color/brown"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintLeft_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_margin="8dp"
+        android:src="@drawable/ic_arrow_back"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/white" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Cappuccino"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="36dp"
+        app:layout_constraintBottom_toBottomOf="@id/headView"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageClock"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/ic_watch"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/imageFavorite"
+        app:layout_constraintTop_toBottomOf="@id/headView"
+        app:tint="@color/brown" />
+
+    <ImageView
+        android:id="@+id/imageFavorite"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/ic_favorite"
+        app:layout_constraintLeft_toRightOf="@id/imageClock"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/headView"
+        app:tint="@color/brown" />
+
+    <TextView
+        android:id="@+id/textTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="15 minutos"
+        android:textAlignment="center"
+        app:layout_constraintLeft_toLeftOf="@id/imageClock"
+        app:layout_constraintRight_toRightOf="@id/imageClock"
+        app:layout_constraintTop_toBottomOf="@id/imageClock" />
+
+    <TextView
+        android:id="@+id/textFavorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="350 avaliações"
+        android:textAlignment="center"
+        app:layout_constraintLeft_toLeftOf="@id/imageFavorite"
+        app:layout_constraintRight_toRightOf="@id/imageFavorite"
+        app:layout_constraintTop_toBottomOf="@id/imageFavorite" />
+
+    <View
+        android:id="@+id/simpleLineView"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_margin="16dp"
+        android:background="@color/brown"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textTime" />
+
+    <TextView
+        android:id="@+id/textDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="16dp"
+        android:text="Uma simples e perfeitamente extraída dose de expresso misturado com leite fresco e cholocate fazem uma bebida deliciosa."
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/simpleLineView" />
+
+    <TextView
+        android:id="@+id/titleIngredients"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:padding="16dp"
+        android:text="Ingredientes"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textDescription" />
+
+    <ImageView
+        android:id="@+id/firstIngredient"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:src="@drawable/ic_chevron_right"
+        app:layout_constraintLeft_toLeftOf="@id/titleIngredients"
+        app:layout_constraintTop_toBottomOf="@id/titleIngredients"
+        app:tint="@color/brown" />
+
+    <TextView
+        android:id="@+id/descriptionFirstIngredient"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:text="1 dose de expresso"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toRightOf="@id/firstIngredient"
+        app:layout_constraintTop_toBottomOf="@id/titleIngredients" />
+
+    <ImageView
+        android:id="@+id/secondIngredient"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:src="@drawable/ic_chevron_right"
+        app:layout_constraintLeft_toLeftOf="@id/titleIngredients"
+        app:layout_constraintTop_toBottomOf="@id/firstIngredient"
+        app:tint="@color/brown" />
+
+    <TextView
+        android:id="@+id/descriptionSecondIngredient"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:text="100ml de leite"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toRightOf="@id/secondIngredient"
+        app:layout_constraintTop_toBottomOf="@id/descriptionFirstIngredient" />
+
+    <ImageView
+        android:id="@+id/lastIngredient"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:src="@drawable/ic_chevron_right"
+        app:layout_constraintLeft_toLeftOf="@id/titleIngredients"
+        app:layout_constraintTop_toBottomOf="@id/secondIngredient"
+        app:tint="@color/brown" />
+
+    <TextView
+        android:id="@+id/descriptionLastIngredient"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:text="1 colher de chocolate em pó"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toRightOf="@id/lastIngredient"
+        app:layout_constraintTop_toBottomOf="@id/descriptionSecondIngredient" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
