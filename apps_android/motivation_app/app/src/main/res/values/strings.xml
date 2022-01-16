@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Motivation App</string>
+    <string name="whats_your_name">What\'s your name?</string>
+    <string name="send">Send</string>
+    <string name="lets_go">Let\'s go?</string>
+    <string name="new_phrase">New Phrase</string>
+    <string name="phrase">Phrase</string>
+    <string name="remember_username">Remember username</string>
+</resources>
