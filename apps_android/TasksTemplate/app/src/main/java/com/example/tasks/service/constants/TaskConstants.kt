@@ -22,6 +22,10 @@ class TaskConstants private constructor() {
         const val SUCCESS = 200
     }
 
+    object API_URL{
+        const val BASE_URL = "http://devmasterteam.com/CursoAndroidAPI/"
+    }
+
     object BUNDLE {
         const val TASKID = "taskid"
         const val TASKFILTER = "taskfilter"
