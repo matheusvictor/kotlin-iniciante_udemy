@@ -1,6 +1,6 @@
 package com.example.tasks.service.listener
 
-class ValidationListener(message: String = "") {
+class ValidationListener(str: String = "") {
 
     private var mSuccessedStatus: Boolean = true
     private var mMessage: String = ""
@@ -8,9 +8,9 @@ class ValidationListener(message: String = "") {
     init {
         /* Ao ser chamado, os valores de ValidationListener serão trocados logo na inicialização
         se houver alguma mensagem recebida no parâmetro diferente de vazio */
-        if (mMessage != "") {
+        if (str != "") {
             mSuccessedStatus = false
-            mMessage = message
+            mMessage = str
         }
     }
 
