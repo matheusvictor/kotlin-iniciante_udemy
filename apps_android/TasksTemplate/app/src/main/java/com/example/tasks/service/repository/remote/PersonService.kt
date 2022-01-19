@@ -20,7 +20,8 @@ interface PersonService {
     fun createNewUser(
         @Field("name") name: String,
         @Field("email") email: String,
-        @Field("password") password: String
+        @Field("password") password: String,
+        @Field("receiveNews") receiveNews: Boolean
     ): Call<HeaderModel>
 
 }
