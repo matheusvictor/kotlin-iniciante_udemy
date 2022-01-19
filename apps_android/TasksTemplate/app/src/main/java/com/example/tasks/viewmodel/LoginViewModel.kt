@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.tasks.service.constants.TaskConstants
 import com.example.tasks.service.listener.APIListener
+import com.example.tasks.service.listener.ValidationListener
 import com.example.tasks.service.model.HeaderModel
 import com.example.tasks.service.repository.PersonRepository
 import com.example.tasks.service.repository.local.SecurityPreferences
@@ -15,8 +16,8 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
     private val mPersonRepository = PersonRepository()
     private val mSharedPreferences = SecurityPreferences(application)
 
-    private val mLoginSuccessed = MutableLiveData<Boolean>()
-    var loginSuccessed: LiveData<Boolean> = mLoginSuccessed
+    private val mLoginSuccessed = MutableLiveData<ValidationListener>()
+    var loginSuccessed: LiveData<ValidationListener> = mLoginSuccessed
 
     /**
      * Faz login usando API
@@ -30,11 +31,12 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
                 mSharedPreferences.store(TaskConstants.SHARED.PERSON_NAME, model.name)
                 mSharedPreferences.store(TaskConstants.SHARED.PERSON_KEY, model.personKey)
 
-                mLoginSuccessed.value = true
+                // Como não foi passado nenhuma mensagem no parâmetro, o retorno é true
+                mLoginSuccessed.value = ValidationListener()
             }
 
             override fun onFailure(message: String) {
-                mLoginSuccessed.value = true
+                mLoginSuccessed.value = ValidationListener(message)
             }
         })
     }
