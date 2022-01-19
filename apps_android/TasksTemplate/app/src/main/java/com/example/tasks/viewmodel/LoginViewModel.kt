@@ -13,7 +13,7 @@ import com.example.tasks.service.repository.local.SecurityPreferences
 
 class LoginViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val mPersonRepository = PersonRepository()
+    private val mPersonRepository = PersonRepository(application)
     private val mSharedPreferences = SecurityPreferences(application)
 
     private val mLoginSuccessed = MutableLiveData<ValidationListener>()
