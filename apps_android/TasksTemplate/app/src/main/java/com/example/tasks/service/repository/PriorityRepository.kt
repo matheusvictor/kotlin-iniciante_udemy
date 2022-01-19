@@ -25,6 +25,7 @@ class PriorityRepository(context: Context) {
                 response: Response<List<PriorityModel>>
             ) {
                 if (response.code() == TaskConstants.HTTP.SUCCESS) {
+                    mPriorityDatabase.clearPriorityList()
                     response.body()?.let { mPriorityDatabase.save(it) }
                 }
             }
