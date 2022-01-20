@@ -13,6 +13,7 @@ import kotlinx.android.synthetic.main.activity_register.button_save
 import kotlinx.android.synthetic.main.activity_task_form.*
 import java.text.SimpleDateFormat
 import androidx.lifecycle.Observer
+import com.example.tasks.service.model.TaskModel
 import java.util.*
 
 class TaskFormActivity : AppCompatActivity(),
@@ -22,6 +23,9 @@ class TaskFormActivity : AppCompatActivity(),
     private lateinit var mViewModel: TaskFormViewModel
 
     private val mDateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH)
+
+    //instancia uma lista de inteiros vazia para salvar os IDs das prioridades
+    private val mListPriorityId: MutableList<Int> = arrayListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,10 +44,25 @@ class TaskFormActivity : AppCompatActivity(),
     override fun onClick(v: View) {
         val id = v.id
         if (id == R.id.button_save) {
-            //TODO
+            handleSaveTask()
         } else if (id == R.id.button_date) {
             showDatePicker()
         }
+    }
+
+    private fun handleSaveTask() {
+        val task: TaskModel = TaskModel().apply {
+            this.description = edit_description.text.toString()
+            this.complete = check_complete.isChecked
+            this.dueDate = button_date.text.toString()
+            /*
+            O ID da prioridade da Task a ser salva será igual ao valor do item selecionado no spinner,
+            referenciado dentro de mListPriorityId
+             */
+            this.priorityId = mListPriorityId[spinner_priority.selectedItemPosition]
+        }
+
+        mViewModel.saveTask(task)
     }
 
     private fun observe() {
@@ -54,6 +73,9 @@ class TaskFormActivity : AppCompatActivity(),
 
             for (item in it) {
                 list.add(item.description)
+                //adiciona o ID do item atual na lista mListPriorityId, instanciada como vazia anteriormente
+                //então, a lista passará a ser composta apenas pelos IDs das prioridades
+                mListPriorityId.add(item.id)
             }
 
             val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, list)
