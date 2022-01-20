@@ -16,7 +16,7 @@ class PersonRepository(val context: Context) {
 
     private val mRetrofitInstance = RetrofitClient.createService(PersonService::class.java)
 
-    fun login(email: String, password: String, listener: APIListener) {
+    fun login(email: String, password: String, listener: APIListener<HeaderModel>) {
         val call: Call<HeaderModel> = mRetrofitInstance.login(email, password)
         // Realiza chamada assíncrona:
         call.enqueue(
@@ -50,7 +50,7 @@ class PersonRepository(val context: Context) {
         )
     }
 
-    fun create(name: String, email: String, password: String, listener: APIListener) {
+    fun create(name: String, email: String, password: String, listener: APIListener<HeaderModel>) {
         val call: Call<HeaderModel> = mRetrofitInstance.createNewUser(name, email, password, false)
         // Realiza chamada assíncrona:
         call.enqueue(
