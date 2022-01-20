@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.DatePicker
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.example.tasks.R
 import com.example.tasks.viewmodel.TaskFormViewModel
@@ -66,8 +67,8 @@ class TaskFormActivity : AppCompatActivity(),
     }
 
     private fun observe() {
-        mViewModel.priorities.observe(this, Observer {
 
+        mViewModel.priorities.observe(this, Observer {
             // atribuição de uma lista de String para o Spinner
             val list: MutableList<String> = arrayListOf()
 
@@ -80,7 +81,14 @@ class TaskFormActivity : AppCompatActivity(),
 
             val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, list)
             spinner_priority.adapter = adapter
+        })
 
+        mViewModel.validation.observe(this, Observer {
+            if (it.isSuccessed()) {
+                Toast.makeText(this, "Sucesso", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, it.getErrorMessage(), Toast.LENGTH_SHORT).show()
+            }
         })
     }
 
