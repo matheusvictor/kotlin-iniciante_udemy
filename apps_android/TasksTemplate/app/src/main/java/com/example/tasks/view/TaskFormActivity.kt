@@ -4,16 +4,15 @@ import android.app.DatePickerDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.DatePicker
 import androidx.lifecycle.ViewModelProvider
 import com.example.tasks.R
-import com.example.tasks.viewmodel.RegisterViewModel
 import com.example.tasks.viewmodel.TaskFormViewModel
-import kotlinx.android.synthetic.main.activity_register.*
 import kotlinx.android.synthetic.main.activity_register.button_save
 import kotlinx.android.synthetic.main.activity_task_form.*
-import java.text.DateFormat
 import java.text.SimpleDateFormat
+import androidx.lifecycle.Observer
 import java.util.*
 
 class TaskFormActivity : AppCompatActivity(),
@@ -33,6 +32,9 @@ class TaskFormActivity : AppCompatActivity(),
         // Inicializa eventos
         listeners()
         observe()
+
+        mViewModel.listPriorities()
+
     }
 
     override fun onClick(v: View) {
@@ -45,6 +47,19 @@ class TaskFormActivity : AppCompatActivity(),
     }
 
     private fun observe() {
+        mViewModel.priorities.observe(this, Observer {
+
+            // atribuição de uma lista de String para o Spinner
+            val list: MutableList<String> = arrayListOf()
+
+            for (item in it) {
+                list.add(item.description)
+            }
+
+            val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, list)
+            spinner_priority.adapter = adapter
+
+        })
     }
 
     private fun listeners() {
