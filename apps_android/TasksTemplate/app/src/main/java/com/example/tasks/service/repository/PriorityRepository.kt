@@ -15,6 +15,7 @@ class PriorityRepository(context: Context) {
     private val mRetrofitInstance = RetrofitClient.createService(PriorityService::class.java)
     private val mPriorityDatabase = TaskDatabase.getDatabase(context).priorityDAO()
 
+    // chamada da API
     fun allPriorities() {
         val call: Call<List<PriorityModel>> = mRetrofitInstance.listAllPriorities()
 
@@ -36,4 +37,8 @@ class PriorityRepository(context: Context) {
 
         })
     }
+
+    // retorno local, comunicação com a classe de banco de dados
+    fun listPriorities() = mPriorityDatabase.listPriorities()
+
 }
