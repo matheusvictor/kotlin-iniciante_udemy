@@ -14,4 +14,7 @@ interface PriorityDAO {
     @Query("DELETE FROM priority")
     fun clearPriorityList()
 
+    @Query("SELECT * FROM priority")
+    fun listPriorities(): List<PriorityModel>
+
 }
