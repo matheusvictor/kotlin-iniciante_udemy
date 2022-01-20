@@ -11,6 +11,7 @@ import com.example.tasks.service.model.HeaderModel
 import com.example.tasks.service.repository.PersonRepository
 import com.example.tasks.service.repository.PriorityRepository
 import com.example.tasks.service.repository.local.SecurityPreferences
+import com.example.tasks.service.repository.remote.RetrofitClient
 
 class LoginViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -37,6 +38,8 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
                 mSharedPreferences.store(TaskConstants.SHARED.PERSON_NAME, model.name)
                 mSharedPreferences.store(TaskConstants.SHARED.PERSON_KEY, model.personKey)
 
+                RetrofitClient.addHeaders(model.token, model.personKey)
+
                 // Como não foi passado nenhuma mensagem no parâmetro, o retorno é true
                 mLoginSuccessed.value = ValidationListener()
             }
@@ -54,6 +57,8 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
 
         val token = mSharedPreferences.get(TaskConstants.SHARED.TOKEN_KEY)
         val personKey = mSharedPreferences.get(TaskConstants.SHARED.PERSON_KEY)
+
+        RetrofitClient.addHeaders(token, personKey)
 
         val isLogged = (token != "" && personKey != "")
 
