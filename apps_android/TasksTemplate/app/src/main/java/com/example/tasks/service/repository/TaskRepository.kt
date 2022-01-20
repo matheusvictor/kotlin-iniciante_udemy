@@ -16,6 +16,43 @@ class TaskRepository(val context: Context) {
 
     private val mRemote = RetrofitClient.createService(TaskService::class.java)
 
+    fun allTasks(listener: APIListener<List<TaskModel>>) {
+        val call: Call<List<TaskModel>> = mRemote.listAllTasks()
+        list(call, listener)
+    }
+
+    fun nextWeek(listener: APIListener<List<TaskModel>>) {
+        val call: Call<List<TaskModel>> = mRemote.nextWeek()
+        list(call, listener)
+    }
+
+    fun overDue(listener: APIListener<List<TaskModel>>) {
+        val call: Call<List<TaskModel>> = mRemote.overdue()
+        list(call, listener)
+    }
+
+    private fun list(call: Call<List<TaskModel>>, listener: APIListener<List<TaskModel>>) {
+        call.enqueue(object : Callback<List<TaskModel>> {
+            override fun onResponse(
+                call: Call<List<TaskModel>>,
+                response: Response<List<TaskModel>>
+            ) {
+                if (response.code() != TaskConstants.HTTP.SUCCESS) {
+                    val apiMessageValidation =
+                        Gson().fromJson(response.errorBody()!!.string(), String::class.java)
+                    listener.onFailure(apiMessageValidation)
+                } else {
+                    response.body()?.let { listener.onSuccess(it) }
+                }
+            }
+
+            override fun onFailure(call: Call<List<TaskModel>>, t: Throwable) {
+                listener.onFailure(context.getString(R.string.ERROR_UNEXPECTED))
+            }
+
+        })
+    }
+
     fun createTask(task: TaskModel, listener: APIListener<Boolean>) {
         val call: Call<Boolean> =
             mRemote.createNewTask(task.priorityId, task.description, task.dueDate, task.complete)
