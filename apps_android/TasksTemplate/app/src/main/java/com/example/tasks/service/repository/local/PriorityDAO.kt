@@ -17,4 +17,7 @@ interface PriorityDAO {
     @Query("SELECT * FROM priority")
     fun listPriorities(): List<PriorityModel>
 
+    @Query("SELECT description FROM priority WHERE id = :id")
+    fun getPriorityDescriptionById(id: Int): String
+
 }

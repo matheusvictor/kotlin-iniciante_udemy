@@ -41,4 +41,6 @@ class PriorityRepository(context: Context) {
     // retorno local, comunicação com a classe de banco de dados
     fun listPriorities() = mPriorityDatabase.listPriorities()
 
+    fun getPriorityDescriptionById(id: Int) = mPriorityDatabase.getPriorityDescriptionById(id)
+
 }
