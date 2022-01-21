@@ -14,6 +14,7 @@ import kotlinx.android.synthetic.main.activity_register.button_save
 import kotlinx.android.synthetic.main.activity_task_form.*
 import java.text.SimpleDateFormat
 import androidx.lifecycle.Observer
+import com.example.tasks.service.constants.TaskConstants
 import com.example.tasks.service.model.TaskModel
 import java.util.*
 
@@ -27,6 +28,7 @@ class TaskFormActivity : AppCompatActivity(),
 
     //instancia uma lista de inteiros vazia para salvar os IDs das prioridades
     private val mListPriorityId: MutableList<Int> = arrayListOf()
+    private var mTaskId = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +41,19 @@ class TaskFormActivity : AppCompatActivity(),
         observe()
 
         mViewModel.listPriorities()
+
+        loadDataFromActivity()
+
+    }
+
+    private fun loadDataFromActivity() {
+        val bundle = intent.extras
+        // na criação de uma tarefa o ID vem nulo, por isso, para edição, é preciso verificar se é nulo
+        // para identificar se trata-se de uma edição ou criação de tarefa
+        if (bundle != null) {
+            mTaskId = bundle.getInt(TaskConstants.BUNDLE.TASKID)
+            mViewModel.loadTask(mTaskId)
+        }
 
     }
 
@@ -53,6 +68,7 @@ class TaskFormActivity : AppCompatActivity(),
 
     private fun handleSaveTask() {
         val task: TaskModel = TaskModel().apply {
+            this.id = mTaskId
             this.description = edit_description.text.toString()
             this.complete = check_complete.isChecked
             this.dueDate = button_date.text.toString()
@@ -90,6 +106,29 @@ class TaskFormActivity : AppCompatActivity(),
                 Toast.makeText(this, it.getErrorMessage(), Toast.LENGTH_SHORT).show()
             }
         })
+
+        mViewModel.task.observe(this, Observer {
+            edit_description.setText(it.description)
+            check_complete.isChecked = it.complete
+
+            spinner_priority.setSelection(getIndex(it.priorityId))
+
+            val date = SimpleDateFormat("yyyy-MM-dd").parse(it.dueDate)
+            button_date.text = mDateFormat.format(date)
+
+        })
+
+    }
+
+    private fun getIndex(priorityId: Int): Int {
+        var index = 0
+        for (i in 0 until mListPriorityId.count()) {
+            if (mListPriorityId[i] == priorityId) {
+                index = i
+                break
+            }
+        }
+        return index
     }
 
     private fun listeners() {
