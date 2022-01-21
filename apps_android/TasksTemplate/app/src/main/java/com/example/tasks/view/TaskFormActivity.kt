@@ -53,6 +53,8 @@ class TaskFormActivity : AppCompatActivity(),
         if (bundle != null) {
             mTaskId = bundle.getInt(TaskConstants.BUNDLE.TASKID)
             mViewModel.loadTask(mTaskId)
+            // se houver dados, trata-se de uma atualização. Então o texto do botão será mudado
+            button_save.text = getString(R.string.update_task)
         }
 
     }
@@ -101,9 +103,14 @@ class TaskFormActivity : AppCompatActivity(),
 
         mViewModel.validation.observe(this, Observer {
             if (it.isSuccessed()) {
-                Toast.makeText(this, "Sucesso", Toast.LENGTH_SHORT).show()
+                if (mTaskId == 0) {
+                    toastMessage(getString(R.string.task_created))
+                } else {
+                    toastMessage(getString(R.string.task_updated))
+                }
+                finish()
             } else {
-                Toast.makeText(this, it.getErrorMessage(), Toast.LENGTH_SHORT).show()
+                toastMessage(it.getErrorMessage())
             }
         })
 
@@ -118,6 +125,10 @@ class TaskFormActivity : AppCompatActivity(),
 
         })
 
+    }
+
+    private fun toastMessage(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
     private fun getIndex(priorityId: Int): Int {

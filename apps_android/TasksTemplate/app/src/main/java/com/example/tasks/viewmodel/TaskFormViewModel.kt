@@ -41,7 +41,6 @@ class TaskFormViewModel(application: Application) : AndroidViewModel(application
                 override fun onFailure(message: String) {
                     mValidation.value = ValidationListener(message)
                 }
-
             })
         } else {
             mTaskRepository.updateTask(task, object : APIListener<Boolean> {
@@ -52,7 +51,6 @@ class TaskFormViewModel(application: Application) : AndroidViewModel(application
                 override fun onFailure(message: String) {
                     mValidation.value = ValidationListener(message)
                 }
-
             })
         }
     }
