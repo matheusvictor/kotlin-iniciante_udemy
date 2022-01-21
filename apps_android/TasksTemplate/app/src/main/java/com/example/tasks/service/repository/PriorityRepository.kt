@@ -10,13 +10,18 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class PriorityRepository(context: Context) {
+class PriorityRepository(val context: Context) : BaseRepository(context) {
 
     private val mRetrofitInstance = RetrofitClient.createService(PriorityService::class.java)
     private val mPriorityDatabase = TaskDatabase.getDatabase(context).priorityDAO()
 
     // chamada da API
     fun allPriorities() {
+
+        if (!isConnectionAvailable(context)) {
+            return
+        }
+
         val call: Call<List<PriorityModel>> = mRetrofitInstance.listAllPriorities()
 
         call.enqueue(object : Callback<List<PriorityModel>> {

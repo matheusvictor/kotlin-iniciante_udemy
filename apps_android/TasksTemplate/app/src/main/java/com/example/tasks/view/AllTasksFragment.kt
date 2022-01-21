@@ -79,6 +79,8 @@ class AllTasksFragment : Fragment() {
         mViewModel.validation.observe(viewLifecycleOwner, Observer {
             if (it.isSuccessed()) {
                 Toast.makeText(context, getString(R.string.task_removed), Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(context, it.getErrorMessage(), Toast.LENGTH_SHORT).show()
             }
         })
     }

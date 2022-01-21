@@ -21,15 +21,13 @@ class AllTasksViewModel(application: Application) : AndroidViewModel(application
 
     fun listAllTasks() {
         mTaskRepository.allTasks(object : APIListener<List<TaskModel>> {
-
             override fun onSuccess(model: List<TaskModel>) {
                 mTaskList.value = model
             }
-
             override fun onFailure(message: String) {
                 mTaskList.value = arrayListOf()
+                mValidation.value = ValidationListener(message)
             }
-
         })
     }
 
