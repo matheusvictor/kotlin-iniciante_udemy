@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.tasks.service.constants.TaskConstants
+import com.example.tasks.service.helper.FingerPrintHelper
 import com.example.tasks.service.listener.APIListener
 import com.example.tasks.service.listener.ValidationListener
 import com.example.tasks.service.model.HeaderModel
@@ -23,8 +24,9 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
     private val mLoginSuccessed = MutableLiveData<ValidationListener>()
     var loginSuccessed: LiveData<ValidationListener> = mLoginSuccessed
 
-    private val mLoggedUser = MutableLiveData<Boolean>()
-    var loggedUser: LiveData<Boolean> = mLoggedUser
+    private val mFingerPrint = MutableLiveData<Boolean>()
+    var fingerprint: LiveData<Boolean> = mFingerPrint
+    var isLogged: Boolean = false
 
     /**
      * Faz login usando API
@@ -50,6 +52,17 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
         })
     }
 
+    fun isFingerPrintAuthenticationAvailable() {
+
+        verifyLoggedUser()
+
+        // verifica se o hardware permite acesso à biometria
+        if (FingerPrintHelper.isAuthenticationAvailable(getApplication())) {
+            mFingerPrint.value = isLogged
+        }
+
+    }
+
     /**
      * Verifica se usuário está logado
      */
@@ -60,13 +73,11 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
 
         RetrofitClient.addHeaders(token, personKey)
 
-        val isLogged = (token != "" && personKey != "")
+        isLogged = (token != "" && personKey != "")
 
         if (!isLogged) {
             mPriorityRepository.allPriorities()
         }
-
-        mLoggedUser.value = isLogged
 
     }
 
