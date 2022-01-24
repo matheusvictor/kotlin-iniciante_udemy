@@ -5,11 +5,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.biometric.BiometricPrompt
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.tasks.R
 import com.example.tasks.viewmodel.LoginViewModel
 import kotlinx.android.synthetic.main.activity_login.*
+import java.util.concurrent.Executor
 
 class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -27,6 +30,8 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
         // Verifica se usuário está logado
         verifyLoggedUser()
+
+        showFingerPrintAuthentication()
     }
 
     override fun onClick(v: View) {
@@ -82,6 +87,35 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         val password = edit_password.text.toString()
 
         mViewModel.doLogin(email, password)
+    }
+
+    private fun showFingerPrintAuthentication() {
+        val executor: Executor = ContextCompat.getMainExecutor(this)
+
+        val biometricPrompt: BiometricPrompt = BiometricPrompt(
+            this@LoginActivity,
+            executor,
+            object : BiometricPrompt.AuthenticationCallback() {
+
+                override fun onAuthenticationFailed() {
+                    super.onAuthenticationFailed()
+                }
+
+                override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
+                    super.onAuthenticationError(errorCode, errString)
+                }
+
+                override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
+                    super.onAuthenticationSucceeded(result)
+                }
+            })
+
+        val info: BiometricPrompt.PromptInfo = BiometricPrompt.PromptInfo.Builder()
+            .setTitle("Olá, novamente!")
+            .setNegativeButtonText("Cancelar")
+            .build()
+
+        biometricPrompt.authenticate(info)
     }
 
 }
