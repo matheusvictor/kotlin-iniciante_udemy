@@ -1,3 +1,7 @@
+package control
+
+import constants.Constantes
+
 class Console private constructor() {
 
     companion object {
