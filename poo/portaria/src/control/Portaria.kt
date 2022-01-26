@@ -2,6 +2,7 @@ package control
 
 import business.ConviteValidacao
 import constants.Constantes
+import entity.Convite
 
 class Portaria {
 
@@ -24,11 +25,15 @@ class Portaria {
         }
 
         val codigoConvite = Console.readString(Constantes.PERGUNTAS.CODIGOCONVITE)
-        if (!validacaoConvite.codigoValido(codigoConvite, tipoConvite)) {
-            return Constantes.ALERTAS.CONVITEINVALIDO
+        // cria instância de Convite com tipo e código recebidos do usuário
+        val convite = Convite(tipoConvite, codigoConvite)
+
+        return if (!validacaoConvite.codigoValido(convite)) {
+            Constantes.ALERTAS.CONVITEINVALIDO
+        } else {
+            Constantes.MSG_SUCESSO.BOAS_VINDAS
         }
 
-        return "TODO"
     }
 
 }
