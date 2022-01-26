@@ -11,7 +11,7 @@ class Constantes {
     object ALERTAS {
         val NAOPERMITIDO = "Acesso negado! Menores de idade não são permitidos."
         val VALORINVALIDO = "Valor inválido!"
-        val CONVITEINVALIDO = "Negado! entity.Convite inválido."
+        val CONVITEINVALIDO = "Negado! Convite inválido."
     }
 
     object MSG_SUCESSO {
