@@ -14,6 +14,10 @@ class Constantes {
         val CONVITEINVALIDO = "Negado! entity.Convite inválido."
     }
 
+    object MSG_SUCESSO {
+        val BOAS_VINDAS = "Boas-vindas! =)"
+    }
+
     object TIPOS_CONVITE {
         val COMUM = "comum"
         val PREMIUM = "premium"
