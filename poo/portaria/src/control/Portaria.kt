@@ -1,12 +1,15 @@
 package control
 
 import business.ConviteValidacao
+import business.PessoaValidacao
 import constants.Constantes
 import entity.Convite
+import entity.Pessoa
 
 class Portaria {
 
     private val validacaoConvite = ConviteValidacao()
+    private val validacaoConvidado = PessoaValidacao()
 
     init {
         println("Portaria inicializada!")
@@ -14,8 +17,11 @@ class Portaria {
     }
 
     private fun controle(): String {
+
         val idade = Console.readInt(Constantes.PERGUNTAS.IDADE)
-        if (idade < 18) {
+        val convidado = Pessoa(idade)
+
+        if (!validacaoConvidado.maiorDeIdade(convidado)) {
             return Constantes.ALERTAS.NAOPERMITIDO
         }
 
