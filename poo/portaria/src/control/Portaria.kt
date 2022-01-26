@@ -5,7 +5,12 @@ import control.Console
 
 class Portaria {
 
-    fun controle() {
+    init {
+        println("Portaria inicializada!")
+        controle()
+    }
+
+    private fun controle() {
         val idade = Console.readInt(Constantes.PERGUNTAS.IDADE)
         while (idade < 18) {
             println(Constantes.ALERTAS.NAOPERMITIDO)
