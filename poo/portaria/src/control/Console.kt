@@ -5,6 +5,7 @@ import constants.Constantes
 class Console private constructor() {
 
     companion object {
+
         fun readInt(msg: String): Int {
             var retorno: Int? = null
             do {
@@ -16,9 +17,9 @@ class Console private constructor() {
 
                     if (retorno == null || retorno <= 0) {
                         println(Constantes.ALERTAS.VALORINVALIDO)
-                    } else {
-                        println(Constantes.ALERTAS.VALORINVALIDO)
                     }
+                } else {
+                    println(Constantes.ALERTAS.VALORINVALIDO)
                 }
 
             } while (retorno == null || retorno <= 0)
