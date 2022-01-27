@@ -63,7 +63,7 @@ class AllGuestsFragment : Fragment() {
 
             override fun onDelete(id: Int) {
                 allGuestsViewModel.delete(id)
-                allGuestsViewModel.loadAllGuestsList()
+                allGuestsViewModel.loadAllGuestsList(GuestConstants.FILTER.EMPTY)
             }
         }
 
@@ -75,7 +75,7 @@ class AllGuestsFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        allGuestsViewModel.loadAllGuestsList()
+        allGuestsViewModel.loadAllGuestsList(GuestConstants.FILTER.EMPTY)
     }
 
     override fun onDestroyView() {
