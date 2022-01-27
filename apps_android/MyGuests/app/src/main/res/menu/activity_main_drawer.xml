@@ -7,14 +7,14 @@
         <item
             android:id="@+id/nav_all_guests"
             android:icon="@drawable/ic_all_guests"
-            android:title="@string/menu_all_guests" />
+            android:title="@string/menu_todos_convidados" />
         <item
             android:id="@+id/nav_confirmed_guests"
             android:icon="@drawable/ic_confirmed"
-            android:title="@string/menu_confirmed_guests" />
+            android:title="@string/menu_presentes" />
         <item
             android:id="@+id/nav_denied_guests"
             android:icon="@drawable/ic_denied"
-            android:title="@string/menu_denied_guests" />
+            android:title="@string/menu_ausentes" />
     </group>
 </menu>

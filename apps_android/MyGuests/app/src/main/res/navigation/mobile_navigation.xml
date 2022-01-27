@@ -8,18 +8,18 @@
     <fragment
         android:id="@+id/nav_all_guests"
         android:name="com.example.myguests.view.AllGuestsFragment"
-        android:label="@string/menu_all_guests"
+        android:label="@string/menu_todos_convidados"
         tools:layout="@layout/fragment_all" />
 
     <fragment
         android:id="@+id/nav_confirmed_guests"
         android:name="com.example.myguests.view.ConfirmedFragment"
-        android:label="@string/menu_confirmed_guests"
+        android:label="@string/menu_presentes"
         tools:layout="@layout/fragment_confirmed" />
 
     <fragment
         android:id="@+id/nav_denied_guests"
         android:name="com.example.myguests.view.DeniedFragment"
-        android:label="@string/menu_denied_guests"
+        android:label="@string/menu_ausentes"
         tools:layout="@layout/fragment_confirmed" />
 </navigation>
