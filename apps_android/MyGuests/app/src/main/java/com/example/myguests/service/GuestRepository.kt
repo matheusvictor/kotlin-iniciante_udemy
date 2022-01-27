@@ -13,7 +13,6 @@ class GuestRepository private constructor(context: Context) {
     private var _guestDataBaseHelper: GuestDataBaseHelper = GuestDataBaseHelper(context)
 
     fun saveGuest(guest: GuestModel): Boolean {
-
         return try {
             // get db to write information
             val writableDatabase = _guestDataBaseHelper.writableDatabase
@@ -29,11 +28,9 @@ class GuestRepository private constructor(context: Context) {
         } catch (e: Exception) {
             false
         }
-
     }
 
     fun updateGuest(guest: GuestModel): Boolean {
-
         return try {
             // get db to write information
             val db = _guestDataBaseHelper.writableDatabase
@@ -47,30 +44,27 @@ class GuestRepository private constructor(context: Context) {
             val columnSelection = DataBaseConstants.GUEST.COLUMNS.ID + " = ?"
             val argsToSelection = arrayOf(guest.id.toString())
 
-            db.update(DataBaseConstants.GUEST.TABLE_NAME, null, columnSelection, argsToSelection)
+            db.update(DataBaseConstants.GUEST.TABLE_NAME, values, columnSelection, argsToSelection)
             true
         } catch (e: Exception) {
             false
         }
-
     }
 
-    fun delete(guest: GuestModel): Boolean {
-
+    fun delete(id: Int): Boolean {
         return try {
             // get db to write information
             val db = _guestDataBaseHelper.writableDatabase
 
             // criteria for removal
             val columnSelection = DataBaseConstants.GUEST.COLUMNS.ID + " = ?"
-            val argsToSelection = arrayOf(guest.id.toString())
+            val argsToSelection = arrayOf(id.toString())
 
             db.delete(DataBaseConstants.GUEST.TABLE_NAME, columnSelection, argsToSelection)
             true
         } catch (e: Exception) {
             false
         }
-
     }
 
     @SuppressLint("Range")
@@ -144,9 +138,7 @@ class GuestRepository private constructor(context: Context) {
             )
 
             if (cursorIsNotNullOrEmpty(cursor)) {
-
                 while (cursor.moveToNext()) {
-
                     val id =
                         cursor.getInt(cursor.getColumnIndex(DataBaseConstants.GUEST.COLUMNS.ID))
                     val name =
@@ -164,7 +156,6 @@ class GuestRepository private constructor(context: Context) {
         } catch (e: Exception) {
             list
         }
-
     }
 
     @SuppressLint("Range")
@@ -176,7 +167,8 @@ class GuestRepository private constructor(context: Context) {
 
             val readableDatabase = _guestDataBaseHelper.readableDatabase
 
-            val cursor = readableDatabase.rawQuery("SELECT * FROM Guest WHERE presence = 0", null)
+            val cursor = readableDatabase
+                    .rawQuery("SELECT id, name, presence FROM Guest WHERE presence = 0", null)
 
             if (cursorIsNotNullOrEmpty(cursor)) {
 
@@ -210,12 +202,11 @@ class GuestRepository private constructor(context: Context) {
 
             val readableDatabase = _guestDataBaseHelper.readableDatabase
 
-            val cursor = readableDatabase.rawQuery("SELECT * FROM Guest WHERE presence = 1", null)
+            val cursor = readableDatabase
+                    .rawQuery("SELECT id, name, presence FROM Guest WHERE presence = 1", null)
 
             if (cursorIsNotNullOrEmpty(cursor)) {
-
                 while (cursor.moveToNext()) {
-
                     val id =
                         cursor.getInt(cursor.getColumnIndex(DataBaseConstants.GUEST.COLUMNS.ID))
                     val name =

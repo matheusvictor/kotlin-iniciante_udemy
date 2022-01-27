@@ -10,12 +10,15 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.myguests.R
+import com.example.myguests.constants.GuestConstants
 import com.example.myguests.viewmodel.GuestFormViewModel
+import kotlinx.android.synthetic.main.activity_guest_form.*
 
 class GuestFormActivity : AppCompatActivity(), View.OnClickListener {
 
     // ref from viewModel
     private lateinit var _viewModel: GuestFormViewModel
+    private var _guestID: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +28,9 @@ class GuestFormActivity : AppCompatActivity(), View.OnClickListener {
 
         setListeners()
         observe()
+        loadData()
+
+        confirmed_radio_button.isChecked = true
     }
 
     override fun onClick(v: View) {
@@ -35,7 +41,8 @@ class GuestFormActivity : AppCompatActivity(), View.OnClickListener {
             val guestName = findViewById<EditText>(R.id.edit_guest_name).text.toString()
             val presence = findViewById<RadioButton>(R.id.confirmed_radio_button).isChecked
 
-            _viewModel.save(guestName, presence)
+            _viewModel.save(_guestID, guestName, presence)
+
         }
     }
 
@@ -53,5 +60,23 @@ class GuestFormActivity : AppCompatActivity(), View.OnClickListener {
             }
             finish()
         })
+
+        _viewModel.guest.observe(this, Observer {
+            edit_guest_name.setText(it.name)
+            if (it.presence) {
+                confirmed_radio_button.isChecked = true
+            } else {
+                denied_radio_button.isChecked = true
+            }
+        })
     }
+
+    private fun loadData() {
+        val bundle = intent.extras
+        if (bundle != null) {
+            _guestID = bundle.getInt(GuestConstants.GUESTID)
+            _viewModel.load(_guestID)
+        }
+    }
+
 }
